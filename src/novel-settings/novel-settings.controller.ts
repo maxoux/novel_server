@@ -17,13 +17,21 @@ export class NovelSettingsController {
         return this.novelSettingsService.purge();
     }
 
-    @Get()
-    findAll(@Req() request: Request): object {
-        return ;
-        return this.novelSettingsService.findAll();
+    @Get("/info")
+    status(): object {
+        return this.novelSettingsService.info();
     }
 
     @Get("/:key")
+    findAll(@Param("key") key: string): object {
+        
+        if (key != "maxoux")
+            return [];
+        else
+            return this.novelSettingsService.findAll();
+    }
+
+    @Get("/find/:key")
     find(@Param("key") key: string) {
         console.log("key ? ", key);
         var response = this.novelSettingsService.find(key);

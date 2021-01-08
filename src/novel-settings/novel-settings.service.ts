@@ -24,6 +24,14 @@ export class NovelSettingsService {
         console.log("DB loaded !");
     }
 
+    info() {
+        return {
+            status: "running",
+            uptime: process.uptime(),
+            settings_count: this.settings.length,
+        }
+    }
+
     set(key: String, settings: String) {
         var existing = this.find(key);
 
