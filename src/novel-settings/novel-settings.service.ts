@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { SettingsInterface } from './settings.interface';
 import { readFileSync, writeFileSync, existsSync } from "fs";
 
-const db_path = __dirname + "/db.json";
+const db_path = __dirname + "/../../db.json";
 
 @Injectable()
 export class NovelSettingsService {
@@ -35,10 +35,12 @@ export class NovelSettingsService {
     set(key: String, settings: String) {
         var existing = this.find(key);
 
-        if (existing)
+        if (existing) {
             existing.settings = settings;
+            existing.updated_at = new Date();
+        }
         else
-            this.settings.push({key, settings});
+            this.settings.push({key, settings, updated_at: new Date()});
 
         this.save();
     }
@@ -53,7 +55,7 @@ export class NovelSettingsService {
     }
 
     save() {
-        writeFileSync(db_path, JSON.stringify(this.settings));
+        writeFileSync(db_path, JSON.stringify(this.settings, null, 4));
     }
 
     purge() {
