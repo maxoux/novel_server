@@ -47,6 +47,8 @@ export class NovelSettingsController {
 
         const max_size = 30000;
 
+        if (!body.key || body.key.length < 2)
+            throw new HttpException("Key length must be longer than 2 characters", HttpStatus.BAD_REQUEST);
         if (body.settings.length >= max_size)
             throw new HttpException("Max File Excedeed", HttpStatus.BAD_REQUEST);
 
