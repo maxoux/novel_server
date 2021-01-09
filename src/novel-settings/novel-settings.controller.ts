@@ -39,7 +39,7 @@ export class NovelSettingsController {
         if (response)
             return response;
         else   
-            return new HttpException("Not found", HttpStatus.NOT_FOUND);
+            throw new HttpException("Not found", HttpStatus.NOT_FOUND);
     }
 
     @Post()
@@ -48,7 +48,7 @@ export class NovelSettingsController {
         const max_size = 30000;
 
         if (body.settings.length >= max_size)
-            return new HttpException("Max File Excedeed", HttpStatus.BAD_REQUEST);
+            throw new HttpException("Max File Excedeed", HttpStatus.BAD_REQUEST);
 
         this.novelSettingsService.set(body.key, body.settings);
         return this.novelSettingsService.findAll();
