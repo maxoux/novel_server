@@ -42,6 +42,17 @@ export class NovelSettingsController {
             throw new HttpException("Not found", HttpStatus.NOT_FOUND);
     }
 
+    @Delete("/:key")
+    delete(@Param("key") key: string) {
+        console.log("key ? ", key);
+        var response = this.novelSettingsService.delete(key);
+
+        if (response)
+            return response;
+        else   
+            throw new HttpException("Not found", HttpStatus.NOT_FOUND);
+    }
+
     @Post()
     async create(@Body() body: SettingsCreateDTO) {
 
