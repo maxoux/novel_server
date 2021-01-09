@@ -44,6 +44,17 @@ export class NovelSettingsService {
 
         this.save();
     }
+    
+    delete(key: String) {
+        var index = this.settings.findIndex((setting: SettingsInterface) => setting.key == key);
+
+        if (index == -1)
+            return null;
+        
+        var res = this.settings.splice(index, 1);
+        this.save();
+        return res;
+    }
 
     findAll() {
         return this.settings;
